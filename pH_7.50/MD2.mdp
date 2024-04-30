@@ -1,0 +1,137 @@
+; RUN CONTROL
+integrator           = md           
+dt                   = 0.002         ; Time step (ps).
+nsteps               = 50000000         ; 100 ps.
+
+; OUTPUT CONTROL
+nstxout-compressed   = 25000           ; Write .xtc frame every 1 ps.
+
+; NEIGHBOUR SEARCHING
+cutoff-scheme        = Verlet        ; Related params are inferred by GROMACS.
+
+; BOND PARAMETERS
+constraints          = h-bonds       ; Constrain H-bond vibrations.
+constraint_algorithm = lincs         ; Holonomic constraints.
+lincs_iter           = 1             ; Related to accuracy of LINCS.
+lincs_order          = 4             ; Related to accuracy of LINCS.
+
+; ELECTROSTATICS
+coulombtype          = PME           ; Particle Mesh Ewald electrostatics.
+rcoulomb             = 1.2           ; CHARMM is calibrated for 1.2 nm.
+fourierspacing       = 0.14         
+
+; VAN DER WAALS
+vdwtype              = cut-off       ; Twin range cut-off with nblist cut-off.
+rvdw                 = 1.2           ; CHARMM is calibrated for 1.2 nm.
+vdw-modifier         = force-switch  ; Specific for CHARMM.
+rvdw-switch          = 1.0           ; Specific for CHARMM.
+
+; TEMPERATURE COUPLING
+tcoupl               = v-rescale    
+tc-grps              = SYSTEM       
+tau-t                = 0.5           ; Coupling time (ps).
+ref-t                = 300           ; Reference temperature (K).
+
+; PRESSURE COUPLING
+pcoupl               = C-rescale     ; Use C-rescale barostat.
+pcoupltype           = semiisotropic ; Different scaling in z-direction (for membranes).
+tau_p                = 5.0           ; Coupling strength.
+ref_p                = 1.0 1.0       ; Reference pressure (bar).
+compressibility      = 4.5e-05 4.5e-05 ; Isothermal compressbility of water.
+
+; PERIODIC BOUNDARY CONDITION
+pbc                  = xyz           ; Apply periodic boundary conditions.
+
+; CONSTANT PH
+lambda-dynamics                                        = yes          
+lambda-dynamics-simulation-ph                          = 7.50          
+lambda-dynamics-lambda-particle-mass                   = 5.0          
+lambda-dynamics-tau                                    = 2.0          
+lambda-dynamics-update-nst                             = 500          
+lambda-dynamics-charge-constraints                     = yes          
+lambda-dynamics-multistate-constraints                 = yes          
+lambda-dynamics-number-lambda-group-types              = 3            
+lambda-dynamics-number-atom-collections                = 9            
+
+lambda-dynamics-group-type1-name                       = ASPT         
+lambda-dynamics-group-type1-n-states                   = 1            
+lambda-dynamics-group-type1-state-0-charges            = -0.21 0.75 -0.55 -0.61 0.44
+lambda-dynamics-group-type1-state-1-charges            = -0.28 0.62 -0.76 -0.76 0.0
+lambda-dynamics-group-type1-state-1-reference-pka      = 3.65         
+lambda-dynamics-group-type1-state-1-dvdl-coefficients  = -54.078 -144.28 278.55 -146.03 -554.27 44.621
+
+lambda-dynamics-group-type2-name                       = HSPT         
+lambda-dynamics-group-type2-n-states                   = 3            
+lambda-dynamics-group-type2-state-0-charges            = 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+lambda-dynamics-group-type2-state-1-charges            = -0.05 0.19 0.13 0.19 -0.51 0.44 -0.51 0.44 0.32 0.18
+lambda-dynamics-group-type2-state-1-reference-pka      = 7.50         
+lambda-dynamics-group-type2-state-1-dvdl-coefficients  = -3015.4 -13444.1 -34779.0 -44335.5 -31383.1 -13684.4 -4905.57 106.148 -484.107 11865.5 48985.4 104163.0 103612.0 59628.7 25794.9 3490.9 2180.34 -18552.6 -70083.6 -117174.0 -91492.5 -47959.2 -12542.4 -3968.74 14751.8 49997.8 63417.3 42048.3 16441.1 3929.98 -6193.44 -18113.5 -17591.7 -9832.74 -2246.33 934.809 2225.21 1887.54 594.263 402.485 604.077 158.757 -463.471 -193.458 82.6296
+lambda-dynamics-group-type2-state-2-charges            = -0.08 -0.05 0.09 0.22 -0.36 0.32 -0.7 0.0 0.25 0.13
+lambda-dynamics-group-type2-state-2-reference-pka      = 6.53         
+lambda-dynamics-group-type2-state-2-dvdl-coefficients  = -1695.49 -8107.68 -22614.3 -40090.6 -39319.4 -21686.8 -5816.32 -1663.43 -1231.35 7080.8 30409.5 75205.7 105063.0 78113.9 30391.7 8898.15 5178.6 -12000.8 -45996.4 -95996.2 -101472.0 -54848.1 -18185.2 -8896.93 10595.2 35922.0 59318.7 45645.0 18480.3 8030.77 -5015.37 -14771.9 -17941.8 -9642.21 -3996.01 894.376 2282.28 1905.97 857.662 264.085 372.239 128.992 -135.244 -299.418 -28.5093
+lambda-dynamics-group-type2-state-3-charges            = -0.09 0.22 0.1 -0.05 -0.7 0.0 -0.36 0.32 0.25 0.13
+lambda-dynamics-group-type2-state-3-reference-pka      = 6.92         
+lambda-dynamics-group-type2-state-3-dvdl-coefficients  = -111.044 -768.566 -9092.12 -17291.1 -2883.78 15464.2 13669.9 5673.64 433.027 873.492 5534.28 29537.7 27498.6 -17935.7 -31834.8 -17251.3 -1555.29 -2245.47 -11551.3 -31061.6 -4912.98 24459.9 19180.8 2258.94 2451.91 9281.43 10136.1 -7134.35 -9948.52 -1755.79 -986.264 -1997.06 1570.57 3175.52 958.098 -64.3349 -650.924 -1045.66 -389.613 -6.33165 63.2438 4.25894 286.277 228.063 -171.139
+
+lambda-dynamics-group-type3-name                       = BUF          
+lambda-dynamics-group-type3-n-states                   = 1            
+lambda-dynamics-group-type3-state-0-charges            = -0.5         
+lambda-dynamics-group-type3-state-1-charges            = 0.5          
+lambda-dynamics-group-type3-state-1-reference-pka      = 0            
+lambda-dynamics-group-type3-state-1-dvdl-coefficients  = 823.85 -2457.8 2172.2 -144.05 -1289.0 576.74
+
+lambda-dynamics-atom-set1-name                         = HSPT         
+lambda-dynamics-atom-set1-index-group-name             = LAMBDA1      
+lambda-dynamics-atom-set1-initial-lambda               = 0.0389 -0.0276 0.9887 
+lambda-dynamics-atom-set1-barrier                      = 7.5          
+lambda-dynamics-atom-set1-charge-restraint-group-index = 1            
+
+lambda-dynamics-atom-set2-name                         = ASPT         
+lambda-dynamics-atom-set2-index-group-name             = LAMBDA2      
+lambda-dynamics-atom-set2-initial-lambda               = 0.9858          
+lambda-dynamics-atom-set2-barrier                      = 7.5          
+lambda-dynamics-atom-set2-charge-restraint-group-index = 1            
+
+lambda-dynamics-atom-set3-name                         = HSPT         
+lambda-dynamics-atom-set3-index-group-name             = LAMBDA3      
+lambda-dynamics-atom-set3-initial-lambda               = -0.0291 0.9997 0.0294  
+lambda-dynamics-atom-set3-barrier                      = 7.5          
+lambda-dynamics-atom-set3-charge-restraint-group-index = 1            
+
+lambda-dynamics-atom-set4-name                         = ASPT         
+lambda-dynamics-atom-set4-index-group-name             = LAMBDA4      
+lambda-dynamics-atom-set4-initial-lambda               = 1.0297          
+lambda-dynamics-atom-set4-barrier                      = 7.5          
+lambda-dynamics-atom-set4-charge-restraint-group-index = 1            
+
+lambda-dynamics-atom-set5-name                         = HSPT         
+lambda-dynamics-atom-set5-index-group-name             = LAMBDA5      
+lambda-dynamics-atom-set5-initial-lambda               = 0.4916 0.3274 0.1810  
+lambda-dynamics-atom-set5-barrier                      = 7.5          
+lambda-dynamics-atom-set5-charge-restraint-group-index = 1            
+
+lambda-dynamics-atom-set6-name                         = ASPT         
+lambda-dynamics-atom-set6-index-group-name             = LAMBDA6      
+lambda-dynamics-atom-set6-initial-lambda               = 1.0069          
+lambda-dynamics-atom-set6-barrier                      = 7.5          
+lambda-dynamics-atom-set6-charge-restraint-group-index = 1            
+
+lambda-dynamics-atom-set7-name                         = HSPT         
+lambda-dynamics-atom-set7-index-group-name             = LAMBDA7      
+lambda-dynamics-atom-set7-initial-lambda               = -0.0485 0.0363 1.0122  
+lambda-dynamics-atom-set7-barrier                      = 7.5          
+lambda-dynamics-atom-set7-charge-restraint-group-index = 1            
+
+lambda-dynamics-atom-set8-name                         = ASPT         
+lambda-dynamics-atom-set8-index-group-name             = LAMBDA8      
+lambda-dynamics-atom-set8-initial-lambda               = 1.0280          
+lambda-dynamics-atom-set8-barrier                      = 7.5          
+lambda-dynamics-atom-set8-charge-restraint-group-index = 1            
+
+lambda-dynamics-atom-set9-name                         = BUF          
+lambda-dynamics-atom-set9-index-group-name             = LAMBDA9      
+lambda-dynamics-atom-set9-initial-lambda               = 0.6899          
+lambda-dynamics-atom-set9-barrier                      = 0.0          
+lambda-dynamics-atom-set9-charge-restraint-group-index = 1            
+lambda-dynamics-atom-set9-buffer-residue               = yes          
+lambda-dynamics-atom-set9-buffer-residue-multiplier    = 40           

@@ -1,0 +1,17 @@
+resname coord# resid chain coordinateFile
+HSPT 1   37 A cphmd-coord-1.xvg
+HSPT 2   37 A cphmd-coord-2.xvg
+HSPT 3   37 A cphmd-coord-3.xvg
+ASPT 1   44 A cphmd-coord-4.xvg
+HSPT 1   37 B cphmd-coord-5.xvg
+HSPT 2   37 B cphmd-coord-6.xvg
+HSPT 3   37 B cphmd-coord-7.xvg
+ASPT 1   44 B cphmd-coord-8.xvg
+HSPT 1   37 C cphmd-coord-9.xvg
+HSPT 2   37 C cphmd-coord-10.xvg
+HSPT 3   37 C cphmd-coord-11.xvg
+ASPT 1   44 C cphmd-coord-12.xvg
+HSPT 1   37 D cphmd-coord-13.xvg
+HSPT 2   37 D cphmd-coord-14.xvg
+HSPT 3   37 D cphmd-coord-15.xvg
+ASPT 1   44 D cphmd-coord-16.xvg

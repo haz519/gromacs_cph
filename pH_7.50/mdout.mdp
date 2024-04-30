@@ -1,0 +1,430 @@
+;
+;	File 'mdout.mdp' was generated
+;	By user: unknown (232381)
+;	On host: sol-b113.cc.lehigh.edu
+;	At date: Sun Apr  7 18:54:10 2024
+;
+;	Created by:
+;	            :-) GROMACS - gmx grompp, 2021-beta1-dev-UNCHECKED (-:
+;	
+;	Executable:   /share/ceph/woi216group-c2/shared/share_dos221/gromacs/constantph/gromacs-constantph/build/bin/gmx
+;	Data prefix:  /share/ceph/woi216group-c2/shared/share_dos221/gromacs/constantph/gromacs-constantph (source tree)
+;	Working dir:  /share/ceph/scratch/haz519/11194292
+;	Command line:
+;	  gmx grompp -f MD3.mdp -c MD2.gro -p topol.top -n index.ndx -o MD3.tpr -maxwarn 1
+
+; VARIOUS PREPROCESSING OPTIONS
+; Preprocessor information: use cpp syntax.
+; e.g.: -I/home/joe/doe -I/home/mary/roe
+include                  = 
+; e.g.: -DPOSRES -DFLEXIBLE (note these variable names are case sensitive)
+define                   = 
+
+; RUN CONTROL PARAMETERS
+integrator               = md
+; Start time and timestep in ps
+tinit                    = 0
+dt                       = 0.002
+nsteps                   = 50000000
+; For exact run continuation or redoing part of a run
+init-step                = 0
+; Part index is updated automatically on checkpointing (keeps files separate)
+simulation-part          = 1
+; Multiple time-stepping
+mts                      = no
+; mode for center of mass motion removal
+comm-mode                = Linear
+; number of steps for center of mass motion removal
+nstcomm                  = 100
+; group(s) for center of mass motion removal
+comm-grps                = 
+
+; LANGEVIN DYNAMICS OPTIONS
+; Friction coefficient (amu/ps) and random seed
+bd-fric                  = 0
+ld-seed                  = -1
+
+; ENERGY MINIMIZATION OPTIONS
+; Force tolerance and initial step-size
+emtol                    = 10
+emstep                   = 0.01
+; Max number of iterations in relax-shells
+niter                    = 20
+; Step size (ps^2) for minimization of flexible constraints
+fcstep                   = 0
+; Frequency of steepest descents steps when doing CG
+nstcgsteep               = 1000
+nbfgscorr                = 10
+
+; TEST PARTICLE INSERTION OPTIONS
+rtpi                     = 0.05
+
+; OUTPUT CONTROL OPTIONS
+; Output frequency for coords (x), velocities (v) and forces (f)
+nstxout                  = 0
+nstvout                  = 0
+nstfout                  = 0
+; Output frequency for energies to log file and energy file
+nstlog                   = 1000
+nstcalcenergy            = 100
+nstenergy                = 1000
+; Output frequency and precision for .xtc file
+nstxout-compressed       = 25000
+compressed-x-precision   = 1000
+; This selects the subset of atoms for the compressed
+; trajectory file. You can select multiple groups. By
+; default, all atoms will be written.
+compressed-x-grps        = 
+; Selection of energy groups
+energygrps               = 
+
+; NEIGHBORSEARCHING PARAMETERS
+; cut-off scheme (Verlet: particle based cut-offs)
+cutoff-scheme            = Verlet
+; nblist update frequency
+nstlist                  = 10
+; Periodic boundary conditions: xyz, no, xy
+pbc                      = xyz
+periodic-molecules       = no
+; Allowed energy error due to the Verlet buffer in kJ/mol/ps per atom,
+; a value of -1 means: use rlist
+verlet-buffer-tolerance  = 0.005
+; nblist cut-off        
+rlist                    = 1
+; long-range cut-off for switched potentials
+
+; OPTIONS FOR ELECTROSTATICS AND VDW
+; Method for doing electrostatics
+coulombtype              = PME
+coulomb-modifier         = Potential-shift-Verlet
+rcoulomb-switch          = 0
+rcoulomb                 = 1.2
+; Relative dielectric constant for the medium and the reaction field
+epsilon-r                = 1
+epsilon-rf               = 0
+; Method for doing Van der Waals
+vdwtype                  = cut-off
+vdw-modifier             = force-switch
+; cut-off lengths       
+rvdw-switch              = 1.0
+rvdw                     = 1.2
+; Apply long range dispersion corrections for Energy and Pressure
+DispCorr                 = No
+; Extension of the potential lookup tables beyond the cut-off
+table-extension          = 1
+; Separate tables between energy group pairs
+energygrp-table          = 
+; Spacing for the PME/PPPM FFT grid
+fourierspacing           = 0.14
+; FFT grid size, when a value is 0 fourierspacing will be used
+fourier-nx               = 0
+fourier-ny               = 0
+fourier-nz               = 0
+; EWALD/PME/PPPM parameters
+pme-order                = 4
+ewald-rtol               = 1e-05
+ewald-rtol-lj            = 0.001
+lj-pme-comb-rule         = Geometric
+ewald-geometry           = 3d
+epsilon-surface          = 0
+implicit-solvent         = no
+
+; OPTIONS FOR WEAK COUPLING ALGORITHMS
+; Temperature coupling  
+tcoupl                   = v-rescale
+nsttcouple               = -1
+nh-chain-length          = 10
+print-nose-hoover-chain-variables = no
+; Groups to couple separately
+tc-grps                  = SYSTEM
+; Time constant (ps) and reference temperature (K)
+tau-t                    = 0.5
+ref-t                    = 300
+; pressure coupling     
+pcoupl                   = C-rescale
+pcoupltype               = semiisotropic
+nstpcouple               = -1
+; Time constant (ps), compressibility (1/bar) and reference P (bar)
+tau_p                    = 5.0
+compressibility          = 4.5e-05 4.5e-05
+ref_p                    = 1.0 1.0
+; Scaling of reference coordinates, No, All or COM
+refcoord-scaling         = No
+
+; OPTIONS FOR QMMM calculations
+QMMM                     = no
+; Groups treated with MiMiC
+QMMM-grps                = 
+
+; SIMULATED ANNEALING  
+; Type of annealing for each temperature group (no/single/periodic)
+annealing                = 
+; Number of time points to use for specifying annealing in each group
+annealing-npoints        = 
+; List of times at the annealing points for each group
+annealing-time           = 
+; Temp. at each annealing point, for each group.
+annealing-temp           = 
+
+; GENERATE VELOCITIES FOR STARTUP RUN
+gen-vel                  = no
+gen-temp                 = 300
+gen-seed                 = -1
+
+; OPTIONS FOR BONDS    
+constraints              = h-bonds
+; Type of constraint algorithm
+constraint_algorithm     = lincs
+; Do not constrain the start configuration
+continuation             = no
+; Use successive overrelaxation to reduce the number of shake iterations
+Shake-SOR                = no
+; Relative tolerance of shake
+shake-tol                = 0.0001
+; Highest order in the expansion of the constraint coupling matrix
+lincs_order              = 4
+; Number of iterations in the final step of LINCS. 1 is fine for
+; normal simulations, but use 2 to conserve energy in NVE runs.
+; For energy minimization with constraints it should be 4 to 8.
+lincs_iter               = 1
+; Lincs will write a warning to the stderr if in one step a bond
+; rotates over more degrees than
+lincs-warnangle          = 30
+; Convert harmonic bonds to morse potentials
+morse                    = no
+
+; ENERGY GROUP EXCLUSIONS
+; Pairs of energy groups for which all non-bonded interactions are excluded
+energygrp-excl           = 
+
+; WALLS                
+; Number of walls, type, atom types, densities and box-z scale factor for Ewald
+nwall                    = 0
+wall-type                = 9-3
+wall-r-linpot            = -1
+wall-atomtype            = 
+wall-density             = 
+wall-ewald-zfac          = 3
+
+; COM PULLING          
+pull                     = no
+
+; AWH biasing          
+awh                      = no
+
+; ENFORCED ROTATION    
+; Enforced rotation: No or Yes
+rotation                 = no
+
+; Group to display and/or manipulate in interactive MD session
+IMD-group                = 
+
+; NMR refinement stuff 
+; Distance restraints type: No, Simple or Ensemble
+disre                    = No
+; Force weighting of pairs in one distance restraint: Conservative or Equal
+disre-weighting          = Conservative
+; Use sqrt of the time averaged times the instantaneous violation
+disre-mixed              = no
+disre-fc                 = 1000
+disre-tau                = 0
+; Output frequency for pair distances to energy file
+nstdisreout              = 100
+; Orientation restraints: No or Yes
+orire                    = no
+; Orientation restraints force constant and tau for time averaging
+orire-fc                 = 0
+orire-tau                = 0
+orire-fitgrp             = 
+; Output frequency for trace(SD) and S to energy file
+nstorireout              = 100
+
+; Free energy variables
+free-energy              = no
+couple-moltype           = 
+couple-lambda0           = vdw-q
+couple-lambda1           = vdw-q
+couple-intramol          = no
+init-lambda              = -1
+init-lambda-state        = -1
+delta-lambda             = 0
+nstdhdl                  = 50
+fep-lambdas              = 
+mass-lambdas             = 
+coul-lambdas             = 
+vdw-lambdas              = 
+bonded-lambdas           = 
+restraint-lambdas        = 
+temperature-lambdas      = 
+calc-lambda-neighbors    = 1
+init-lambda-weights      = 
+dhdl-print-energy        = no
+sc-alpha                 = 0
+sc-power                 = 1
+sc-r-power               = 6
+sc-sigma                 = 0.3
+sc-coul                  = no
+separate-dhdl-file       = yes
+dhdl-derivatives         = yes
+dh_hist_size             = 0
+dh_hist_spacing          = 0.1
+
+; Constant pH lambda dynamics
+lambda-dynamics          = yes
+; Simulation pH value to use
+lambda-dynamics-simulation-ph = 7.50
+; Thermostat being used for lambda particles
+lambda-dynamics-themorstat = V-rescale
+; Mass for the lambda particles
+lambda-dynamics-lambda-particle-mass = 5.0
+; Update interval for lambda
+lambda-dynamics-update-nst = 500
+; Tau for lambda        
+lambda-dynamics-tau      = 2.0
+; Are multi state constraints being used?
+lambda-dynamics-multistate-constraints = yes
+; Are charge constraints being used?
+lambda-dynamics-charge-constraints = yes
+; Is this a calibration run?
+lambda-dynamics-calibration = no
+; Number of different lambda dynamics residues
+lambda-dynamics-number-lambda-group-types = 3
+; Seed for velocity generation. -1 means generate seed
+lambda-dynamics-random-seed = -1
+; Seed for temperature coupling. -1 means generate seed
+lambda-dynamics-random-vv-seed = -1
+; The name for this group type.
+lambda-dynamics-group-type1-name = ASPT
+; The number of states for this group type.
+lambda-dynamics-group-type1-n-states = 1
+; The dvdl references values for this group type
+lambda-dynamics-group-type1-state-1-dvdl-coefficients = -54.078 -144.28 278.55 -146.03 -554.27 44.621
+; Group type reference pKa
+lambda-dynamics-group-type1-state-1-reference-pka = 3.65
+; Atomic charges for state A
+lambda-dynamics-group-type1-state-0-charges = -0.21 0.75 -0.55 -0.61 0.44
+; Atomic charges for state B
+lambda-dynamics-group-type1-state-1-charges = -0.28 0.62 -0.76 -0.76 0.0
+lambda-dynamics-group-type2-state-1-dvdl-coefficients = -3015.4 -13444.1 -34779.0 -44335.5 -31383.1 -13684.4 -4905.57 106.148 -484.107 11865.5 48985.4 104163.0 103612.0 59628.7 25794.9 3490.9 2180.34 -18552.6 -70083.6 -117174.0 -91492.5 -47959.2 -12542.4 -3968.74 14751.8 49997.8 63417.3 42048.3 16441.1 3929.98 -6193.44 -18113.5 -17591.7 -9832.74 -2246.33 934.809 2225.21 1887.54 594.263 402.485 604.077 158.757 -463.471 -193.458 82.6296
+lambda-dynamics-group-type2-state-1-reference-pka = 7.50
+lambda-dynamics-group-type2-state-1-charges = -0.05 0.19 0.13 0.19 -0.51 0.44 -0.51 0.44 0.32 0.18
+lambda-dynamics-group-type2-state-2-dvdl-coefficients = -1695.49 -8107.68 -22614.3 -40090.6 -39319.4 -21686.8 -5816.32 -1663.43 -1231.35 7080.8 30409.5 75205.7 105063.0 78113.9 30391.7 8898.15 5178.6 -12000.8 -45996.4 -95996.2 -101472.0 -54848.1 -18185.2 -8896.93 10595.2 35922.0 59318.7 45645.0 18480.3 8030.77 -5015.37 -14771.9 -17941.8 -9642.21 -3996.01 894.376 2282.28 1905.97 857.662 264.085 372.239 128.992 -135.244 -299.418 -28.5093
+lambda-dynamics-group-type2-state-2-reference-pka = 6.53
+lambda-dynamics-group-type2-state-2-charges = -0.08 -0.05 0.09 0.22 -0.36 0.32 -0.7 0.0 0.25 0.13
+lambda-dynamics-group-type2-name = HSPT
+lambda-dynamics-group-type2-n-states = 3
+lambda-dynamics-group-type2-state-3-dvdl-coefficients = -111.044 -768.566 -9092.12 -17291.1 -2883.78 15464.2 13669.9 5673.64 433.027 873.492 5534.28 29537.7 27498.6 -17935.7 -31834.8 -17251.3 -1555.29 -2245.47 -11551.3 -31061.6 -4912.98 24459.9 19180.8 2258.94 2451.91 9281.43 10136.1 -7134.35 -9948.52 -1755.79 -986.264 -1997.06 1570.57 3175.52 958.098 -64.3349 -650.924 -1045.66 -389.613 -6.33165 63.2438 4.25894 286.277 228.063 -171.139
+lambda-dynamics-group-type2-state-3-reference-pka = 6.92
+lambda-dynamics-group-type2-state-0-charges = 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+lambda-dynamics-group-type2-state-3-charges = -0.09 0.22 0.1 -0.05 -0.7 0.0 -0.36 0.32 0.25 0.13
+lambda-dynamics-group-type3-name = BUF
+lambda-dynamics-group-type3-n-states = 1
+lambda-dynamics-group-type3-state-1-dvdl-coefficients = 823.85 -2457.8 2172.2 -144.05 -1289.0 576.74
+lambda-dynamics-group-type3-state-1-reference-pka = 0
+lambda-dynamics-group-type3-state-0-charges = -0.5
+lambda-dynamics-group-type3-state-1-charges = 0.5
+; Number of atom sets to apply lambda dynamics to
+lambda-dynamics-number-atom-collections = 9
+; Name for this collection
+lambda-dynamics-atom-set1-name = HSPT
+; Charge restraint group index for this collection
+lambda-dynamics-atom-set1-charge-restraint-group-index = 1
+; Barrier between states
+lambda-dynamics-atom-set1-barrier = 7.5
+; Name of index group for this collection
+lambda-dynamics-atom-set1-index-group-name = LAMBDA1
+; If this residue is a buffer residue or not
+lambda-dynamics-atom-set1-buffer-residue = no
+; Initial value for the lambda of this collection
+lambda-dynamics-atom-set1-initial-lambda = 0.0189 -0.0008 0.9819
+lambda-dynamics-atom-set2-name = ASPT
+lambda-dynamics-atom-set2-charge-restraint-group-index = 1
+lambda-dynamics-atom-set2-barrier = 7.5
+lambda-dynamics-atom-set2-index-group-name = LAMBDA2
+lambda-dynamics-atom-set2-buffer-residue = no
+lambda-dynamics-atom-set2-initial-lambda = 1.0081
+lambda-dynamics-atom-set3-name = HSPT
+lambda-dynamics-atom-set3-charge-restraint-group-index = 1
+lambda-dynamics-atom-set3-barrier = 7.5
+lambda-dynamics-atom-set3-index-group-name = LAMBDA3
+lambda-dynamics-atom-set3-buffer-residue = no
+lambda-dynamics-atom-set3-initial-lambda = 0.2469 0.0353 0.7177
+lambda-dynamics-atom-set4-name = ASPT
+lambda-dynamics-atom-set4-charge-restraint-group-index = 1
+lambda-dynamics-atom-set4-barrier = 7.5
+lambda-dynamics-atom-set4-index-group-name = LAMBDA4
+lambda-dynamics-atom-set4-buffer-residue = no
+lambda-dynamics-atom-set4-initial-lambda = 1.0146
+lambda-dynamics-atom-set5-name = HSPT
+lambda-dynamics-atom-set5-charge-restraint-group-index = 1
+lambda-dynamics-atom-set5-barrier = 7.5
+lambda-dynamics-atom-set5-index-group-name = LAMBDA5
+lambda-dynamics-atom-set5-buffer-residue = no
+lambda-dynamics-atom-set5-initial-lambda = 0.2032 0.0954 0.7014
+lambda-dynamics-atom-set6-name = ASPT
+lambda-dynamics-atom-set6-charge-restraint-group-index = 1
+lambda-dynamics-atom-set6-barrier = 7.5
+lambda-dynamics-atom-set6-index-group-name = LAMBDA6
+lambda-dynamics-atom-set6-buffer-residue = no
+lambda-dynamics-atom-set6-initial-lambda = 0.9882
+lambda-dynamics-atom-set7-name = HSPT
+lambda-dynamics-atom-set7-charge-restraint-group-index = 1
+lambda-dynamics-atom-set7-barrier = 7.5
+lambda-dynamics-atom-set7-index-group-name = LAMBDA7
+lambda-dynamics-atom-set7-buffer-residue = no
+lambda-dynamics-atom-set7-initial-lambda = 0.0066 0.0094 0.9840
+lambda-dynamics-atom-set8-name = ASPT
+lambda-dynamics-atom-set8-charge-restraint-group-index = 1
+lambda-dynamics-atom-set8-barrier = 7.5
+lambda-dynamics-atom-set8-index-group-name = LAMBDA8
+lambda-dynamics-atom-set8-buffer-residue = no
+lambda-dynamics-atom-set8-initial-lambda = 0.9796
+lambda-dynamics-atom-set9-name = BUF
+lambda-dynamics-atom-set9-charge-restraint-group-index = 1
+lambda-dynamics-atom-set9-barrier = 0.0
+lambda-dynamics-atom-set9-index-group-name = LAMBDA9
+lambda-dynamics-atom-set9-buffer-residue = yes
+lambda-dynamics-atom-set9-initial-lambda = 0.6878
+lambda-dynamics-atom-set9-buffer-residue-multiplier = 40
+
+; Non-equilibrium MD stuff
+acc-grps                 = 
+accelerate               = 
+freezegrps               = 
+freezedim                = 
+cos-acceleration         = 0
+deform                   = 
+
+; simulated tempering variables
+simulated-tempering      = no
+simulated-tempering-scaling = geometric
+sim-temp-low             = 300
+sim-temp-high            = 300
+
+; Ion/water position swapping for computational electrophysiology setups
+; Swap positions along direction: no, X, Y, Z
+swapcoords               = no
+adress                   = no
+
+; User defined thingies
+user1-grps               = 
+user2-grps               = 
+userint1                 = 0
+userint2                 = 0
+userint3                 = 0
+userint4                 = 0
+userreal1                = 0
+userreal2                = 0
+userreal3                = 0
+userreal4                = 0
+; Electric fields
+; Format for electric-field-x, etc. is: four real variables:
+; amplitude (V/nm), frequency omega (1/ps), time for the pulse peak (ps),
+; and sigma (ps) width of the pulse. Omega = 0 means static field,
+; sigma = 0 means no pulse, leaving the field to be a cosine function.
+electric-field-x         = 0 0 0 0
+electric-field-y         = 0 0 0 0
+electric-field-z         = 0 0 0 0
+
+; Density guided simulation
+density-guided-simulation-active = false
